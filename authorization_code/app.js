@@ -13,9 +13,9 @@ var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 
-var client_id = 'CLIENT_ID'; // Your client id
-var client_secret = 'CLIENT_SECRET'; // Your secret
-var redirect_uri = 'REDIRECT_URI'; // Your redirect uri
+var client_id = '8e16e5bfd9a548f785a3e70d7bfadc84'; // Your client id
+var client_secret = '52d21220bd1d4320b85ca4c9122bf9da'; // Your secret
+var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -46,7 +46,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-library-read user-library-modify playlist-read-collaborative playlist-read-private playlist-modify-private playlist-modify-public user-read-currently-playing user-read-playback-state user-modify-playback-state user-read-private user-read-email user-read-playback-state user-read-recently-played user-top-read user-read-playback-position app-remote-control streaming';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -104,7 +104,7 @@ app.get('/callback', function(req, res) {
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:3000/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
